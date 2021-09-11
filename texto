@@ -1,16 +1,18 @@
 include <iostream>
 using namespece std;
-daskdjalksjd lkajsd alkjsd lkajsd 
+
+/*daskdjalksjd lkajsd alkjsd lkajsd 
 asdkljaskdj 
 lakjsd lakjsd kas
 alçkdsjalkdjs lakjsd 
 alkdsj alkdjs 
 joaozinho pica grossa
 eu alterei comendo sávyo
-Sávyo é feio
+Sávyo é feio*/
+
 int main(){
 
-cout << "Savyo feio gameplays";
+cout << "Savyo feio gameplays" << endl;
 
 return 0;
 
