@@ -1,6 +1,6 @@
 #include "Menus.h"
 
-/*Funcionára nas setas, quando for atualizado o padrão do gatch()*/
+/*Não funcionará nas setinhas*/
 
 /*Toda essa parte é genérica e é usada em todos os métodos de menus*/
 
@@ -20,26 +20,31 @@ void textcolor (int letras, int fundo){
 }
 /*Até aqui*/
 
-int const Menus::MenuGeral(){
+int const Menus::ExibidorDeMenus(){
 
-    /*De menu para menu, será preenchido apenas o vetor de string com as opções
-    e mudado até o ponto que a variável I do for vai*/
-    string Menu[3] = {"SAIR DO PROGRAMA", "FUNCIONÁRIO", "CLIENTE"};
+    /*NÃO ALTERAR A EXIBIÇÃO PADRÃO DE MENUS, OS
+    MÉTODOS ADICIONADOS PARA NOVOS MENUS, CHAMAM ESSE
+    AO FINAL*/
+
     int PosicaoMenu = 0;
     string Controle = "";
 
     while(1){
         system("cls");
 
-        for(int I=0; I<3; I++){
+        textcolor(4,0);
+        cout << MensagemAmigavel[0] << endl << endl;
+        textcolor(15,0);
+
+        for(int I=0; I<Exibidor.size(); I++){
             if(I == PosicaoMenu){
                 textcolor(2,0); /*2 = Ciano*/
-                cout << Menu[I] << endl;
+                cout << Exibidor[I] << endl;
                 cout << "   [1 Voltar || 2 Entrar]" << endl;
             }
             else{
                 textcolor(15,0); /*Voltando ao original*/
-                cout << Menu[I] << endl;
+                cout << Exibidor[I] << endl;
             }
            
         }
@@ -51,13 +56,13 @@ int const Menus::MenuGeral(){
         Controle = getch();
         if(Controle == "s"){
             PosicaoMenu++;
-            if(PosicaoMenu > 2)
+            if(PosicaoMenu > Exibidor.size()-1)
                 PosicaoMenu = 0;
         }
         else if(Controle == "w"){
             PosicaoMenu--;
             if(PosicaoMenu < 0)
-                PosicaoMenu = 2;
+                PosicaoMenu = Exibidor.size()-1;
         }
 
         /*Bloco padrão para verificação de entrada na opção, ao final
@@ -66,8 +71,57 @@ int const Menus::MenuGeral(){
 
         Controle = getch(); /*Segundo getch() serve para verificar, se foi entrado na opção*/
         if(Controle == "1")
-            continue;
+            return 99;
         else if(Controle == "2")
             return PosicaoMenu;
     }
+
+}
+
+/*Esses são os métodos que devem ser chamados na main*/
+    /*Menu geral*/
+int const Menus::MenuGeral(){
+
+    string Menu[2] = {"FUNCIONÁRIO", "CLIENTE"};
+
+    /*Mensagem amigável para indicar ao usuário em que menu ele está no momento*/
+    MensagemAmigavel.clear();
+    MensagemAmigavel.push_back("EMPRESA DE VIAGENS AIRPLANE");
+
+    Exibidor.clear();
+    for(int I=0; I<2; /*O .size não fucniona*/ I++){
+        Exibidor.push_back(Menu[I]);
+    }
+
+    return ExibidorDeMenus();
+}
+
+int const Menus::Cliente(){
+
+    string Menu[2] = {"ENTRAR", "CADASTRE-SE"};
+
+    MensagemAmigavel.clear();
+    MensagemAmigavel.push_back("MENU DE CLIENTE");
+
+    Exibidor.clear();
+    for(int I=0; I<2; I++){
+        Exibidor.push_back(Menu[I]);
+    }
+
+    return ExibidorDeMenus();
+}
+
+int const Menus::Funcionario(){
+
+    string Menu[2] = {"ENTRAR", "TENTE UMA VAGA"};
+
+    MensagemAmigavel.clear();
+    MensagemAmigavel.push_back("MENU DE FUNCIOÁRIO");
+
+    Exibidor.clear();
+    for(int I=0; I<2; I++){
+        Exibidor.push_back(Menu[I]);
+    }
+
+    return ExibidorDeMenus();
 }
